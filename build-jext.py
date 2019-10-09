@@ -176,7 +176,7 @@ def process_args(args):
     # build the specified extension
     package_file, update_file = build_extension(args.path)
     # push the extension files to its update server, if desired
-    if args.push:
+    if args.release:
         # build SSH config object
         ssh_config = {
             'host': args.ssh_host,
@@ -192,18 +192,18 @@ def process_args(args):
 
 if __name__ == "__main__":
     # build argument parser
-    parser = argparse.ArgumentParser(description='Create and publish packages of Joomla! extensions.')
-    parser.add_argument('--push', action='store_const', const=True, help='push the extension package to the specified update server')
-    parser.add_argument('-s', '--ssh_host', help='specify the SSH host, if pushing an update')
-    parser.add_argument('-P', '--ssh_port', help='specify the SSH port, if pushing an update')
-    parser.add_argument('-u', '--ssh_user', help='specify the SSH user, if pushing an update')
-    parser.add_argument('-p', '--ssh_password', help='specify the SSH password, if pushing an update')
-    parser.add_argument('-d', '--remote_dir', help='remote directory of the extension')
+    parser = argparse.ArgumentParser(description='Build and release packages of Joomla! extensions.')
+    parser.add_argument('--release', action='store_const', const=True, help='push the extension package to the specified update server')
+    parser.add_argument('-s', '--ssh_host', help='specify the SSH host for pushing the update (required if releasing)')
+    parser.add_argument('-P', '--ssh_port', help='specify the SSH port for pushing the update (optional)')
+    parser.add_argument('-u', '--ssh_user', help='specify the SSH user for pushing the release (if not using a SSH key)')
+    parser.add_argument('-p', '--ssh_password', help='specify the SSH password for publishing the release (see ssh_user)')
+    parser.add_argument('-d', '--remote_dir', help='remote root directory for Joomla extensions (required if relasing)')
     parser.add_argument('path', help='path to the extension directory')
     # parse passed arguments
     args = parser.parse_args()
     # validate (combination of) arguments
-    if args.push and not (args.ssh_host and args.remote_dir):
-        parser.error('The SSH host and the remote directory have to be specified when pushing an extension to its update server!')
+    if args.release and not (args.ssh_host and args.remote_dir):
+        parser.error('The SSH host and the remote directory have to be specified when releasing an extension package!')
     # process arguments
     process_args(args)
