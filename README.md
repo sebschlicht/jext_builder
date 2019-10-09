@@ -2,6 +2,21 @@
 
 The script in this repository allows to package a Joomla! extension and optionally push this new release to an update server.
 
+## Example
+
+For an extension `com_nuliga` the following builder call
+
+    /path/to/build-jext.py /path/to/com_nuliga
+
+1. removes all previous package files in the extension's folder,
+1. creates a new package file, such as `com_nuliga-0.2.0.zip` and
+1. updates the extension's update file (i.e. `updates/extension.xml`) to current new version number and package file name
+
+If the script is also releasing the package, both the created package file and the modified update file are pushed to the update server of the extension afterwards.
+The SSH connection details to this server can be specified using various command line arguments (see [usage section](#usage)):
+
+    /path/to/build-jext.py /path/to/com_nuliga --release -s domain.com -u myuser -p mysecretpassword
+
 ## Usage
 
 The following is the output of the script's help:
