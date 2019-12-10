@@ -15,7 +15,7 @@ For an extension `com_nuliga` the following builder call
 If the script is also releasing the package, both the created package file and the modified update file are pushed to the update server of the extension afterwards.
 The SSH connection details to this server can be specified using various command line arguments (see [usage section](#usage)):
 
-    /path/to/build-jext.py /path/to/com_nuliga --release -s domain.com -u myuser -p mysecretpassword
+    /path/to/build-jext.py /path/to/com_nuliga --release -s domain.com
 
 ## Usage
 
